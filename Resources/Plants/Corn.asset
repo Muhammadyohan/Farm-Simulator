@@ -23,4 +23,4 @@ MonoBehaviour:
   sellPrice: 20
   icon: {fileID: -396027380, guid: 45669a0d520da7f489ef966dde7bece6, type: 3}
   dryPlanted: {fileID: -1176361943, guid: 8a3f979a32bc7fb4e810bbe9489024a2, type: 3}
-  existed: 0
+  existed: 3

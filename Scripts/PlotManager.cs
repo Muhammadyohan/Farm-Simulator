@@ -5,28 +5,33 @@ using UnityEngine;
 public class PlotManager : MonoBehaviour
 {
 
+    public bool isBought = true;
     bool isPlanted = false;
-    SpriteRenderer plant;
-    BoxCollider2D plantCollider;
-
-    int plantStage = 0;
-    float timer;
-
-    public Color availableColor = Color.green;
-    public Color unavailableColor = Color.red;
-
-    SpriteRenderer plot;
-    PlantObject selectedPlant;
-    FarmManager fm;
-    MouseClickHandler mch;
-
+    bool isCoin = false;
     bool isDry = true;
+
+    SpriteRenderer plant;
+    SpriteRenderer plot;
+    SpriteRenderer coin;
     public Sprite drySprite;
     public Sprite normalSprite;
     public Sprite unavailableSprite;
 
+    BoxCollider2D plantCollider;
+
+    int plantStage = 0;
+
+    public Color availableColor = Color.green;
+    public Color unavailableColor = Color.red;
+
+    PlantObject selectedPlant;
+    FarmManager fm;
+    MouseClickHandler mch;
+
+
+    float timer;
     float speed = 1f;
-    public bool isBought = true;
+    float coinTimer;
 
     void Start() {
         plant = transform.GetChild(0).GetComponent<SpriteRenderer>();
@@ -34,6 +39,7 @@ public class PlotManager : MonoBehaviour
         fm = transform.parent.GetComponent<FarmManager>();
         mch = FindObjectOfType<MouseClickHandler>();
         plot = GetComponent<SpriteRenderer>();
+        coin = transform.GetChild(1).GetComponent<SpriteRenderer>();
         if (isBought) {
             plot.sprite = drySprite;
         } else {
@@ -49,6 +55,14 @@ public class PlotManager : MonoBehaviour
                 timer = selectedPlant.timeBtwStages;
                 plantStage++;
                 UpdatePlant();
+            }
+        }
+
+        if (isCoin) {
+            coinTimer -= Time.deltaTime;
+
+            if (coinTimer < 0) {
+                CoinCollect();
             }
         }
     }
@@ -87,6 +101,8 @@ public class PlotManager : MonoBehaviour
                     break;
             }
         }
+
+        if (isCoin && !fm.isSelecting) CoinCollect();
     }
 
     private void OnMouseOver()
@@ -147,18 +163,22 @@ public class PlotManager : MonoBehaviour
             }
         }
 
+        if (isCoin && !fm.isSelecting && mch.isMouseHold) CoinCollect();
     }
 
     void Harvest() {
         isPlanted = false;
         plant.gameObject.SetActive(false);
-        fm.Transaction(selectedPlant.sellPrice);
         isDry = true;
         plot.sprite = drySprite;
         speed = 1f;
+        coin.gameObject.SetActive(true);
+        coinTimer = 5f;
+        isCoin = true;
     }
 
     void Plant(PlantObject newPlant) {
+        if (isCoin) CoinCollect();
         selectedPlant = newPlant;
         isPlanted = true;
 
@@ -168,6 +188,7 @@ public class PlotManager : MonoBehaviour
         plantStage = 0;
         UpdatePlant();
         timer = selectedPlant.timeBtwStages;
+        coin.gameObject.SetActive(false);
         plant.gameObject.SetActive(true);
     }
 
@@ -179,6 +200,12 @@ public class PlotManager : MonoBehaviour
         }
         plantCollider.size = plant.sprite.bounds.size;
         plantCollider.offset = new Vector2(0,plant.bounds.size.y/2);
+    }
+
+    void CoinCollect() {
+        isCoin = false;
+        coin.gameObject.SetActive(false);
+        fm.Transaction(selectedPlant.sellPrice);
     }
     
     private void OnMouseExit()
