@@ -9,12 +9,10 @@ public class MouseClickHandler : MonoBehaviour
 {
     FarmManager fm;
 
-    SpriteRenderer mouseIcon;
     public bool isMouseHold = false;
 
     private void Start() {
         fm = FindObjectOfType<FarmManager>();
-        mouseIcon = transform.GetChild(0).GetComponent<SpriteRenderer>();
     }
     private void Update() {
         if (fm.isPlanting || fm.isSelecting) {
@@ -25,17 +23,6 @@ public class MouseClickHandler : MonoBehaviour
             if (Input.GetMouseButtonUp(0)) {
                 isMouseHold = false;
             }
-        }
-
-        if (fm.isPlanting) {
-            Vector3 mousePos;
-            mousePos = Input.mousePosition;
-            mousePos = Camera.main.ScreenToWorldPoint(mousePos);
-            mouseIcon.sprite = fm.selectPlant.plant.icon;
-            mouseIcon.gameObject.SetActive(true);
-            mouseIcon.gameObject.transform.localPosition = new Vector3(mousePos.x, mousePos.y, 0);
-        } else {
-            mouseIcon.gameObject.SetActive(false);
         }
     }
 }
