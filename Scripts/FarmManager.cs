@@ -20,13 +20,23 @@ public class FarmManager : MonoBehaviour {
 
     public Image[] buttonsImg;
     public Sprite normalButton; 
-    public Sprite selectedButton; 
+    public Sprite selectedButton;
+
+    List<PlantObject> plantObjects = new List<PlantObject>(); 
 
     // Start is called before the first frame update
-    void Start()
-    {
-        moneyTxt.text = "$" + money;
-        moneyTxt2.text = "$" + money;
+    void Start() {
+        var loadPlants = Resources.LoadAll("Plants", typeof(PlantObject));
+        foreach (var plant in loadPlants) {
+            plantObjects.Add((PlantObject)plant);
+        }
+        
+        foreach (var plant in plantObjects) {
+            plant.existed = 0;
+        }
+
+        moneyTxt.text = "$" + money.ToString();
+        moneyTxt2.text = "$" + money.ToString();
     }
     
     public void SelectPlant(PlantInventory newPlant)
@@ -69,7 +79,7 @@ public class FarmManager : MonoBehaviour {
 
     public void Transaction(int value) {
         money += value;
-        moneyTxt.text = "$" + money;
-        moneyTxt2.text = "$" + money;
+        moneyTxt.text = "$" + money.ToString();
+        moneyTxt2.text = "$" + money.ToString();
     }
 }

@@ -10,16 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1a9153ab5eb26a4a9a29d5d9553f213, type: 3}
-  m_Name: SuperTomato
+  m_Name: Diamond Tomato
   m_EditorClassIdentifier: 
-  plantName: Super Tomato
+  plantName: Diamond Tomato
   plantStages:
   - {fileID: -453376734, guid: 45669a0d520da7f489ef966dde7bece6, type: 3}
   - {fileID: 462562598, guid: 45669a0d520da7f489ef966dde7bece6, type: 3}
   - {fileID: 1667894337, guid: 45669a0d520da7f489ef966dde7bece6, type: 3}
-  - {fileID: 1236087243, guid: 45669a0d520da7f489ef966dde7bece6, type: 3}
-  timeBtwStages: 3
+  - {fileID: -1636247958, guid: de5028e3cc5453a44aacf1ac467b9eba, type: 3}
+  timeBtwStages: 7
   buyPrice: 60
-  sellPrice: 150
-  icon: {fileID: 630854050, guid: 45669a0d520da7f489ef966dde7bece6, type: 3}
+  sellPrice: 100
+  icon: {fileID: 61992918, guid: de5028e3cc5453a44aacf1ac467b9eba, type: 3}
   dryPlanted: {fileID: -471098976, guid: 8a3f979a32bc7fb4e810bbe9489024a2, type: 3}
+  existed: 0

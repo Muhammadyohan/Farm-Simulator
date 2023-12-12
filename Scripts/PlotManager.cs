@@ -74,7 +74,7 @@ public class PlotManager : MonoBehaviour
         if (fm.isSelecting) {
             switch(fm.selectedTool) {
                 case 1:
-                    if (isBought) {
+                    if (isBought && isDry) {
                         isDry = false;
                         plot.sprite = normalSprite;
                         if (isPlanted) UpdatePlant();
@@ -87,8 +87,8 @@ public class PlotManager : MonoBehaviour
                     }
                     break;
                 case 3:
-                    if (fm.money >= 100 && !isBought) {
-                        fm.Transaction(-100);
+                    if (fm.money >= 200 && !isBought) {
+                        fm.Transaction(-200);
                         isBought = true;
                         plot.sprite = drySprite;
                     }
@@ -102,7 +102,7 @@ public class PlotManager : MonoBehaviour
             }
         }
 
-        if (isCoin && !fm.isSelecting) CoinCollect();
+        if (isCoin && !fm.isSelecting && !fm.isPlanting) CoinCollect();
     }
 
     private void OnMouseOver()
@@ -121,7 +121,7 @@ public class PlotManager : MonoBehaviour
         if (fm.isSelecting) {
             switch (fm.selectedTool) {
                 case 1:
-                    if (isBought) {
+                    if (isBought && isDry) {
                         plot.color = availableColor;
                         if (mch.isMouseHold) {
                             isDry = false;
@@ -142,6 +142,11 @@ public class PlotManager : MonoBehaviour
                 case 3:
                     if (!isBought && fm.money >= 100) {
                         plot.color = availableColor;
+                        if (mch.isMouseHold) {
+                            fm.Transaction(-100);
+                            isBought = true;
+                            plot.sprite = drySprite;
+                        }
                     } else {
                         plot.color = unavailableColor;
                     }
@@ -163,7 +168,7 @@ public class PlotManager : MonoBehaviour
             }
         }
 
-        if (isCoin && !fm.isSelecting && mch.isMouseHold) CoinCollect();
+        if (isCoin && !fm.isSelecting && !fm.isPlanting) CoinCollect();
     }
 
     void Harvest() {

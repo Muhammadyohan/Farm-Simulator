@@ -15,11 +15,13 @@ public class MouseClickHandler : MonoBehaviour
         fm = FindObjectOfType<FarmManager>();
     }
     private void Update() {
-        if (Input.GetMouseButtonDown(0)) {
-            isMouseHold = true;
-        }
-        if (Input.GetMouseButtonUp(0)) {
-            isMouseHold = false;
+        if (fm.isPlanting || fm.isSelecting) {
+            if (Input.GetMouseButtonDown(0)) {
+                isMouseHold = true;
+            }
+            if (Input.GetMouseButtonUp(0)) {
+                isMouseHold = false;
+            }
         }
     }
 }

@@ -18,9 +18,9 @@ MonoBehaviour:
   - {fileID: 1354953775, guid: 45669a0d520da7f489ef966dde7bece6, type: 3}
   - {fileID: 1558080243, guid: 45669a0d520da7f489ef966dde7bece6, type: 3}
   - {fileID: 1504309333, guid: 45669a0d520da7f489ef966dde7bece6, type: 3}
-  timeBtwStages: 1
+  timeBtwStages: 2
   buyPrice: 10
   sellPrice: 20
   icon: {fileID: -396027380, guid: 45669a0d520da7f489ef966dde7bece6, type: 3}
   dryPlanted: {fileID: -1176361943, guid: 8a3f979a32bc7fb4e810bbe9489024a2, type: 3}
-  existed: 3
+  existed: 0
